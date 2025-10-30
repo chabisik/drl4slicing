@@ -1,0 +1,38 @@
+# training and evaluation infrastructure parameters
+infrastructure:
+  train_start_seed: 1
+  eval_seed: 99999999
+  choice: 1 # 1 or 2 or 3
+  1:
+    expected_cnodes: 6
+    expected_switches: 3
+    expected_routers: 4
+    min_cpu: 150.0
+    max_cpu: 300.0
+    min_ram: 150.0
+    max_ram: 300.0
+    min_stor: 150.0
+    max_stor: 300.0
+    cnodePl_min_bw: 500.0
+    cnodePl_max_bw: 500.0
+    corePl_min_bw: 300000.0
+    corePl_max_bw: 300000.0
+
+# network slice placement requests (NSPRs) parameters
+nspr:
+  train_start_seed: 8888888888
+  eval_seed: 7777777777
+  level: 1 # 1 or 2
+  1:
+    rq_min_cpu: 3.0
+    rq_max_cpu: 10.0
+    rq_min_ram: 3.0
+    rq_max_ram: 10.0
+    rq_min_stor: 3.0
+    rq_max_stor: 10.0
+    rq_min_bw: 3.0
+    rq_max_bw: 7.0
+    min_vnfs: 15
+    max_vnfs: 15
+    min_batch_nsprs: 1
+    max_batch_nsprs: 1

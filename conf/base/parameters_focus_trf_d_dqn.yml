@@ -1,0 +1,84 @@
+# This is a boilerplate parameters config generated for pipeline 'focus_trf_d_dqn'
+# using Kedro 1.0.0.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+
+ftdd: # (f)ocus_(t)rf_(d)_(d)qn
+#=========================================================================================
+  focus:
+    active: False
+    r_parameter: 0.1
+    degree: 50
+    random_part: 0.5
+#=========================================================================================
+  trf: # tranformer
+    n_encoders: 2
+    embed_dim: 10 # sum of 5 cnode features and 5 vnf features
+    num_heads: 5 # should be a divider of embed_dim
+    dropout: 0.2
+    ff_size_mul: 4
+#=========================================================================================
+  fcnn:
+    hidden_sizes: [216, 216]
+#=========================================================================================
+  explorer:
+    choice: "decay_epsilon_greedy" # "decay_epsilon_greedy" or "constant_epsilon_greedy"
+    #----------------------------------------------------------------------------------
+    decay_epsilon_greedy:
+      start_epsilon: 1.0
+      end_epsilon: 0.35
+      decay_steps: 30000
+    constant_epsilon_greedy:
+      epsilon: 0.5
+#=========================================================================================
+  replay_buffer:
+    choice: "prioritized" # "prioritized" or "normal"
+    #-----------------------------------------------
+    prioritized:
+      capacity: 1000000
+      alpha: 1
+      beta0: 0.4
+      betasteps: 15
+      eps: 0.1
+      normalize_by_max: "batch"
+      num_steps: 1
+    normal:
+      capacity: 1000000
+      num_steps: 1
+#=========================================================================================
+  optimizer:
+    choice: "lion" # "adam" or "lion"
+    #-------------------------------
+    lion:
+      lr: 4e-5
+      betas: [0.9, 0.99]
+      weight_decay: 0
+    adam:
+      lr: 1e-3
+      betas: [0.9, 0.999]
+      eps: 1e-8
+      weight_decay: 0
+#=========================================================================================
+  algorithm:
+    choice: "ddqn" # "dqn" or "ddqn"
+    #-----------------------------
+    dqn_ddqn:
+      gamma: 0.99
+      gpu: -1
+      replay_start_size: 25000
+      minibatch_size: 128
+      update_interval: 1
+      target_update_interval: 15000
+      clip_delta: False
+      target_update_method: "hard"
+      soft_update_tau: 0.0005
+      n_times_update: 1
+      batch_accumulator: "mean"
+      max_grad_norm: null
+#=========================================================================================
+  drl_loop:
+    n_train_episodes: 2500
+    evaluate_interval: 3
+#=========================================================================================
+  save_perf_in: "focus_trf_d_dqn.txt"
